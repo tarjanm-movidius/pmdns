@@ -1,0 +1,4 @@
+PMDNS_URL="https://example.000webhostapp.com/ip.php"
+PMDNS_HOST="my_lil_host"
+PMDNS_DLY=60
+IPFILE="/var/run/pmdns.ip"
