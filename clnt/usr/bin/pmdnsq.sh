@@ -9,13 +9,13 @@ WGETLOG="/tmp/${SELF}.log"
 
 [ -n "$2" -a "$2" != "-v" ] && ping -q -c1 -t5 -w5 "$2" > /dev/null && exit 0
 if [ "$2" == "-v" ]; then
-	echo "$WGET -v4O- --content-on-error \"${PMDNS_URL}?name=$1\""
-	NEWIP=`$WGET -v4O- --content-on-error "${PMDNS_URL}?name=$1"`
+	echo "$WGET -v4O- --content-on-error \"${PMDNS_URL}?pass=${PMDNS_PASS}&name=$1\""
+	NEWIP=`$WGET -v4O- --content-on-error "${PMDNS_URL}?pass=${PMDNS_PASS}&name=$1"`
 	RET=$?
 	echo "$NEWIP"
 	[ $RET -ne 0 ] && echo "*** wget returned $RET" && exit $RET
 else
-	NEWIP=`$WGET -nv -4O- --content-on-error "${PMDNS_URL}?name=$1" 2> "$WGETLOG"`
+	NEWIP=`$WGET -nv -4O- --content-on-error "${PMDNS_URL}?pass=${PMDNS_PASS}&name=$1" 2> "$WGETLOG"`
 	RET=$?
 	[ $RET -ne 0 ] && echo "`tr '\n' ' ' < "$WGETLOG"` # $NEWIP # err$RET" | logger -t $SELF -p daemon.warning && exit $RET
 fi

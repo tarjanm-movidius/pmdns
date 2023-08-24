@@ -8,10 +8,11 @@ The idea is:
    - ...in txt files, when I grow up I'll put them in a DB
    - ?name=my_lil_host queries the IP of my_lil_host that's returned as plain text
    - ?name=my_lil_host&newip=1.2.3.4 updates the stored IP of my_lil_host
+   - pass=secret password needed for all operations. Change it in php and /etc/default/pmdns
  * SRV side (of which we want to know the IP of) has pmdns.sh running as a service
    - config in /etc/default/pmdns
    - waits PMDNS_DLY seconds
-   - queries its real world IP address (works in behind-router with port-forwarding situation)
+   - queries its real world IP address (works in behind-router-with-port-forwarding situation)
    - if it has changed compared to what's stored in IPFILE, update PMDNS_HOST record of PMDNS_URL
    - started by /etc/init.d/pmdns.sh with -d (daemonize) cmdline param. Without that script is in
      debug mode with verbose prints & exit after send. Use -f to send IP even if it matches saved

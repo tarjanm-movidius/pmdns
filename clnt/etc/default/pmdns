@@ -1,1 +1,2 @@
 PMDNS_URL="https://example.000webhostapp.com/ip.php"
+PMDNS_PASS="secret"

@@ -5,6 +5,10 @@
   header('Pragma: no-cache');
 
   // Input validation
+  if (!isset($_GET['pass']) || $_GET['pass'] != "secret") {
+    http_response_code(500);
+    die("Nope");
+  }
   if (!isset($_GET['name'])) {
     http_response_code(500);
     die("No name");
