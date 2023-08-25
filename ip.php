@@ -1,13 +1,14 @@
 <?php
+  $pass = "secret";
   $ipfdir = "../tmp/";
 
   header('Cache-Control: no-cache');
   header('Pragma: no-cache');
 
   // Input validation
-  if (!isset($_GET['pass']) || $_GET['pass'] != "secret") {
-    http_response_code(500);
-    die("Nope");
+  if (!isset($_GET['pass']) || $_GET['pass'] != $pass) {
+    http_response_code(404);
+    die(1);
   }
   if (!isset($_GET['name'])) {
     http_response_code(500);
@@ -27,7 +28,12 @@
       http_response_code(500);
       die("Bad IP");
     }
-    $ipfile = fopen($ipfn, "w") or die("Unable to write file!");
+    $ipfile = fopen($ipfn, "w");
+    if ($ipfile == false) {
+      http_response_code(500);
+//    echo $ipfn, ": ";
+      die("Unable to write file");
+    }
     fwrite($ipfile, $_GET['newip']);
 //  echo "Written ", $_GET['newip'], " to '", $ipfn, "'\n";
 
@@ -38,7 +44,7 @@
     if ($ipfile == false) {
       http_response_code(404);
 //    echo $ipfn, ": ";
-      die("Unable to open file!");
+      die("Host not found");
     }
     echo fgets($ipfile);
   }
